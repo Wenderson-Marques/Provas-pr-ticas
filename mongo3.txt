@@ -1,0 +1,66 @@
+# Criar uma Coleção com Vários Atributos
+db.propriedades.insertMany([
+    {
+        "nome": "Fazenda do Sol",
+        "tamanho": "500 hectares",
+        "localizacao": "São Paulo",
+        "tipo": "Agricultura",
+        "culturas": ["Milho", "Soja", "Café"],
+        "funcionarios": [
+            {"nome": "João", "cargo": "Gerente"},
+            {"nome": "Maria", "cargo": "Supervisor"}
+        ],
+        "equipamentos": ["Trator", "Colheitadeira", "Plantadeira"],
+        "estoque_insumos": {
+            "adubo": 1000,
+            "defensivos": 500,
+            "sementes": 2000
+        }
+    },
+    {
+        "nome": "Fazenda da Lua",
+        "tamanho": "300 hectares",
+        "localizacao": "Mato Grosso",
+        "tipo": "Pecuária",
+        "rebanho": [
+            {"tipo": "Boi", "quantidade": 200},
+            {"tipo": "Vaca", "quantidade": 150}
+        ],
+        "funcionarios": [
+            {"nome": "Carlos", "cargo": "Zootecnista"},
+            {"nome": "Ana", "cargo": "Veterinária"}
+        ],
+        "equipamentos": ["Caminhonete", "Cercas", "Balança"],
+        "estoque_insumos": {
+            "racao": 500,
+            "medicamentos": 300
+        }
+    }
+])
+
+# Consultar todas as propriedades
+db.propriedades.find()
+
+# Consultar propriedades localizadas em São Paulo
+db.propriedades.find({ "localizacao": "São Paulo" })
+
+# Consultar propriedades que possuem mais de 1000 hectares de tamanho
+db.propriedades.find({ "tamanho": { $gt: "1000 hectares" } })
+
+# Consultar propriedades que possuem culturas de café
+db.propriedades.find({ "culturas": "Café" })
+
+# Atualizar o tamanho da "Fazenda do Sol" para "700 hectares"
+db.propriedades.updateOne(
+    { "nome": "Fazenda do Sol" },
+    { $set: { "tamanho": "700 hectares" } }
+)
+
+# Adicionar um novo funcionário à "Fazenda da Lua"
+db.propriedades.updateOne(
+    { "nome": "Fazenda da Lua" },
+    { $push: { "funcionarios": { "nome": "Rafael", "cargo": "Tratorista" } } }
+)
+
+# Excluir a propriedade "Fazenda da Lua"
+db.propriedades.deleteOne({ "nome": "Fazenda da Lua" })

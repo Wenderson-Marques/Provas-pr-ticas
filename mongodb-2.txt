@@ -1,0 +1,96 @@
+# Criar uma Coleção com Vários Atributos
+
+db.propriedades.insertMany([
+    {
+        "nome": "Fazenda do Sol",
+        "tamanho": "500 hectares",
+        "localizacao": "São Paulo",
+        "tipo": "Agricultura",
+        "culturas": ["Milho", "Soja", "Café"],
+        "funcionarios": [
+            {"nome": "João", "cargo": "Gerente"},
+            {"nome": "Maria", "cargo": "Supervisor"}
+        ],
+        "equipamentos": ["Trator", "Colheitadeira", "Plantadeira"],
+        "estoque_insumos": {
+            "adubo": 1000,
+            "defensivos": 500,
+            "sementes": 2000
+        }
+    },
+    {
+        "nome": "Fazenda da Lua",
+        "tamanho": "300 hectares",
+        "localizacao": "Mato Grosso",
+        "tipo": "Pecuária",
+        "rebanho": [
+            {"tipo": "Boi", "quantidade": 200},
+            {"tipo": "Vaca", "quantidade": 150}
+        ],
+        "funcionarios": [
+            {"nome": "Carlos", "cargo": "Zootecnista"},
+            {"nome": "Ana", "cargo": "Veterinária"}
+        ],
+        "equipamentos": ["Caminhonete", "Cercas", "Balança"],
+        "estoque_insumos": {
+            "racao": 500,
+            "medicamentos": 300
+        }
+    }
+])
+
+db.propriedades.find()
+db.propriedades.find({ "localizacao": "São Paulo" })
+db.propriedades.find({ "tamanho": { $gt: "1000 hectares" } })
+db.propriedades.find({ "culturas": "Café" })
+db.propriedades.updateOne(
+    { "nome": "Fazenda do Sol" },
+    { $set: { "tamanho": "700 hectares" } }
+)
+db.propriedades.updateOne(
+    { "nome": "Fazenda da Lua" },
+    { $push: { "funcionarios": { "nome": "Rafael", "cargo": "Tratorista" } } }
+)
+db.propriedades.deleteOne({ "nome": "Fazenda da Lua" })
+
+
+Sim, existem algumas outras funções úteis que você pode querer conhecer ao trabalhar com o MongoDB:
+Funções de Agregação:
+
+    $group: Agrupa documentos por um determinado campo e permite realizar operações de agregação, como soma, média, máximo, mínimo, etc.
+
+    $project: Projeta campos específicos do documento e adiciona novos campos calculados.
+
+    $match: Filtra os documentos de acordo com critérios específicos.
+
+    $sort: Ordena os documentos com base em um ou mais campos.
+
+    $limit e $skip: Limita o número de documentos retornados e pula um número específico de documentos.
+
+Funções de Texto:
+
+    $text: Permite pesquisar texto em campos de texto indexados.
+
+    $search: Realiza uma pesquisa de texto para encontrar documentos que correspondam a uma consulta de texto específica.
+
+Funções de Geolocalização:
+
+    $near: Encontra documentos próximos a uma localização geoespacial específica.
+
+    $geoWithin: Seleciona documentos que estão dentro de uma área geoespacial específica.
+
+Funções de Tempo:
+
+    $currentDate: Insere a data atual em um campo específico do documento.
+
+    $dateToString: Converte uma data para uma string com um formato específico.
+
+Funções de Array:
+
+    $addToSet: Adiciona um valor a um array se ele não estiver presente.
+
+    $elemMatch: Seleciona documentos que contêm um elemento que corresponde a determinados critérios em um array.
+
+    $arrayElemAt: Retorna o elemento de um array em um índice específico.
+
+Essas são algumas das funções mais úteis do MongoDB que podem ser aplicadas em diferentes cenários. Elas permitem uma manipulação mais avançada dos documentos e consultas no banco de dados. Se precisar de mais detalhes sobre alguma dessas funções ou de exemplos específicos, estou à disposição!

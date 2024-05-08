@@ -1,0 +1,189 @@
+
+# Operações Básicas no MongoDB para o Agronegócio
+
+## 1. Criar um Banco de Dados e uma Coleção
+
+use agronegocio_db
+db.createCollection("fazendas")
+
+## 2. Inserir Documentos na Coleção
+
+db.fazendas.insertOne({
+    "nome": "Fazenda Santa Fé",
+    "tamanho": "100 hectares",
+    "localizacao": "Mato Grosso"
+})
+
+## 3. Atualizar Documento na Coleção
+
+db.fazendas.updateOne(
+    { "nome": "Fazenda Santa Fé" },
+    { $set: { "tamanho": "150 hectares" } }
+)
+
+## 4. Excluir Documento da Coleção
+
+db.fazendas.deleteOne({ "nome": "Fazenda Santa Fé" })
+
+## 5. Buscar Documentos na Coleção
+
+### Buscar todos os documentos:
+db.fazendas.find()
+
+### Buscar documentos com critérios específicos:
+db.fazendas.find({ "localizacao": "Mato Grosso" })
+
+# Operações Básicas no MongoDB para o Agronegócio
+
+## 1. Criar um Banco de Dados e uma Coleção
+
+use agronegocio_db
+db.createCollection("fazendas")
+
+## 2. Inserir Documentos na Coleção
+
+db.fazendas.insertOne({
+    "nome": "Fazenda Santa Fé",
+    "tamanho": "100 hectares",
+    "localizacao": "Mato Grosso"
+})
+
+## 3. Atualizar Documento na Coleção
+
+db.fazendas.updateOne(
+    { "nome": "Fazenda Santa Fé" },
+    { $set: { "tamanho": "150 hectares" } }
+)
+
+## 4. Excluir Documento da Coleção
+
+db.fazendas.deleteOne({ "nome": "Fazenda Santa Fé" })
+
+## 5. Buscar Documentos na Coleção
+
+### Buscar todos os documentos:
+db.fazendas.find()
+
+### Buscar documentos com critérios específicos:
+db.fazendas.find({ "localizacao": "Mato Grosso" })
+
+## 6. Contar Documentos na Coleção
+
+db.fazendas.count()
+
+## 7. Excluir uma Coleção
+
+db.fazendas.drop()
+
+## 8. Indexar Atributos para Melhorar a Performance de Consulta
+
+db.fazendas.createIndex({ "localizacao": 1 })
+
+## 9. Filtrar e Projetar Documentos na Consulta
+
+### Filtrar documentos com tamanho maior que 200 hectares:
+db.fazendas.find({ "tamanho": { $gt: "200 hectares" } })
+
+### Projetar apenas o nome e a localização dos documentos:
+db.fazendas.find({}, { "nome": 1, "localizacao": 1 })
+
+## 10. Ordenar Resultados da Consulta
+
+### Ordenar documentos por tamanho em ordem decrescente:
+db.fazendas.find().sort({ "tamanho": -1 })
+
+## 11. Limitar o Número de Documentos Retornados
+
+### Retornar apenas os 3 primeiros documentos:
+db.fazendas.find().limit(3)
+
+# Operações Básicas no MongoDB para o Agronegócio
+
+## 1. Criar um Banco de Dados e uma Coleção
+
+use agronegocio_db
+db.createCollection("fazendas")
+
+## 2. Inserir Documentos na Coleção
+
+db.fazendas.insertOne({
+    "nome": "Fazenda Santa Fé",
+    "tamanho": "100 hectares",
+    "localizacao": "Mato Grosso"
+})
+
+## 3. Atualizar Documento na Coleção
+
+db.fazendas.updateOne(
+    { "nome": "Fazenda Santa Fé" },
+    { $set: { "tamanho": "150 hectares" } }
+)
+
+## 4. Excluir Documento da Coleção
+
+db.fazendas.deleteOne({ "nome": "Fazenda Santa Fé" })
+
+## 5. Buscar Documentos na Coleção
+
+### Buscar todos os documentos:
+db.fazendas.find()
+
+### Buscar documentos com critérios específicos:
+db.fazendas.find({ "localizacao": "Mato Grosso" })
+
+## 6. Contar Documentos na Coleção
+
+db.fazendas.count()
+
+## 7. Excluir uma Coleção
+
+db.fazendas.drop()
+
+## 8. Indexar Atributos para Melhorar a Performance de Consulta
+
+db.fazendas.createIndex({ "localizacao": 1 })
+
+## 9. Filtrar e Projetar Documentos na Consulta
+
+### Filtrar documentos com tamanho maior que 200 hectares:
+db.fazendas.find({ "tamanho": { $gt: "200 hectares" } })
+
+### Projetar apenas o nome e a localização dos documentos:
+db.fazendas.find({}, { "nome": 1, "localizacao": 1 })
+
+## 10. Ordenar Resultados da Consulta
+
+### Ordenar documentos por tamanho em ordem decrescente:
+db.fazendas.find().sort({ "tamanho": -1 })
+
+## 11. Limitar o Número de Documentos Retornados
+
+### Retornar apenas os 3 primeiros documentos:
+db.fazendas.find().limit(3)
+
+## 12. Agrupar Documentos com base em um Atributo
+
+### Agrupar fazendas por localização:
+db.fazendas.aggregate([
+    { $group: { _id: "$localizacao", count: { $sum: 1 } } }
+])
+
+## 13. Realizar Operações de Agregação
+
+### Calcular o tamanho total das fazendas em Mato Grosso:
+db.fazendas.aggregate([
+    { $match: { "localizacao": "Mato Grosso" } },
+    { $group: { _id: null, total: { $sum: { $toInt: "$tamanho" } } } }
+])
+
+## 14. Realizar Consultas com Operadores Lógicos
+
+### Consultar fazendas com tamanho maior que 100 hectares e localizadas em Mato Grosso:
+db.fazendas.find({ $and: [{ "tamanho": { $gt: "100 hectares" } }, { "localizacao": "Mato Grosso" }] })
+
+## 15. Realizar Consultas com Expressões Regulares
+
+### Consultar fazendas cujo nome começa com "Fazenda":
+db.fazendas.find({ "nome": { $regex: "^Fazenda" } })
+
+
